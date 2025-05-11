@@ -1,0 +1,6 @@
+print( 9 + 9 )
+print( 8 * 3 )
+print( 6 / 3 )
+print( 9 // 4 )
+print( 9 - 6 )
+print( 9 - 9 )
