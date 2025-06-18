@@ -1,0 +1,47 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #212121;
+    color: #f5f5f5;
+}
+ul, #history-p, #popuation-culture-p, #economic-p, #stalini-p-2{
+    text-align: center;
+}
+li{
+    list-style: none;
+}
+.imgs{
+    border-radius: 24px;
+}
+#stalini-imgs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+#stalini-p{
+    text-align: center;
+    width: 700px;
+}
+#videos-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+button{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 10px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+button:hover{
+    background-color: #353535;
+    color: #f5f5f5;
+}
