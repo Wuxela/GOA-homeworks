@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>სარეგისტრაციო ფორმა</title>
+</head>
+<body>
+    <h2>რეგისტრაცია</h2>
+    <form action="login.html" method="get">
+        <label for="fullname">სახელი და გვარი:</label>
+        <input type="text" id="fullname" name="fullname" required>
+        <br><br>
+
+        <label for="email">ელ :</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+
+        <label for="password">პაროლი:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Female</label>
+        <br><br>
+
+        <button type="submit">რეგისტრაცია</button>
+    </form>
+
+    <p>უკვე გაქვს ანგარიში? <a href="login.html">შესვლა</a></p>
+</body>
+</html>

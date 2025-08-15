@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <title>შეკვეთის ფორმა</title>
+</head>
+
+<body style="font-family: Arial; text-align: center; background-color: #f4f4f4;">
+
+    <h1>🍔 შეკვეთის გაგზავნა</h1>
+    <p>აირჩიე პროდუქტი და შეავსე ინფორმაცია</p>
+
+    <form action="thanks.html" method="get"
+        style="background: white; padding: 20px; border-radius: 10px; display: inline-block;">
+        <label>სახელი:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>პროდუქტი:</label><br>
+        <select name="product" required>
+            <option>ბურგერი</option>
+            <option>პიცა</option>
+            <option>ყავა</option>
+            <option>დონატი</option>
+            <option>შაურმა</option>
+            <option>ხინკალი</option>
+            <option>ხაჭაპური</option>
+            <option>ლობიანი</option>
+            <option>კარტოფილი ფრი</option>
+            <option>სალათი ცეზარი</option>
+            <option>სუში</option>
+            <option>სპაგეტი</option>
+            <option>შოკოლადის ნამცხვარი</option>
+            <option>ვაშლის ღვეზელი</option>
+            <option>პელმენები</option>
+            <option>ბლინჩიკი</option>
+            <option>მოხარშული სიმინდი</option>
+            <option>ქათმის სუპი</option>
+            <option>ღომი</option>
+        </select><br><br>
+
+        <label>რაოდენობა:</label><br>
+        <input type="number" name="quantity" min="1" value="1" required><br><br>
+
+        <input type="submit" value="📤 გაგზავნა"
+            style="background: orange; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
+    </form>
+
+</body>
+
+</html>
