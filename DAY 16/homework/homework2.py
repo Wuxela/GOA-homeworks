@@ -1,4 +1,3 @@
-
 correct_login = "leqso"
 correct_password = "aba tu gamoicnob"
 user_login = input("შეიყვანეთ ლოგინი: ")

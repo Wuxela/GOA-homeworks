@@ -1,4 +1,3 @@
-
 age = int(input("შეიყვანეთ ასაკი: "))
 height = float(input("შეიყვანეთ სიმაღლე (სმ): "))
 weight = float(input("შეიყვანეთ წონა (კგ): "))
