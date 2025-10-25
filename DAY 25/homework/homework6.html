@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departures Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #8BC34A;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin: 2px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .insert-row {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Departures Table for Workers</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Train Company</th>
+                <th>Destination</th>
+                <th>Time</th>
+                <th>Platform</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>Great Western</td>
+                <td>London</td>
+                <td>01:00:00</td>
+                <td>1</td>
+                <td>2017-01-31</td>
+                <td>
+                    <button class="btn">edit</button>
+                    <button class="btn">delete</button>
+                    <button class="btn">save</button>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>National</td>
+                <td>Exeter</td>
+                <td>23:03:00</td>
+                <td>3</td>
+                <td>2017-02-01</td>
+                <td>
+                    <button class="btn">edit</button>
+                    <button class="btn">delete</button>
+                    <button class="btn">save</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7">
+                    New ID will be given automatically
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="ID"></td>
+                <td><input type="text" placeholder="Train Company"></td>
+                <td><input type="text" placeholder="Destination"></td>
+                <td><input type="text" placeholder="Time"></td>
+                <td><input type="number" placeholder="Platform"></td>
+                <td><input type="date"></td>
+                <td><button class="btn">Insert Row</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="insert-row">
+        <button class="btn">Insert Row</button>
+    </div>
+
+    <footer>
+        <p>Logout from user <a href="#">Logout</a></p>
+    </footer>
+
+</body>
+
+</html>
