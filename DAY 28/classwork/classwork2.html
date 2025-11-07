@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Color Picker</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+            padding: 50px;
+            transition: background 0.3s;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .red {
+            background: red;
+        }
+
+        .blue {
+            background: blue;
+        }
+
+        .green {
+            background: green;
+        }
+
+        .yellow {
+            background: goldenrod;
+        }
+
+        .purple {
+            background: purple;
+        }
+
+        .orange {
+            background: orange;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Color Picker</h2>
+
+    <button class="red" onclick="changeColor('red')">წითელი</button>
+    <button class="blue" onclick="changeColor('blue')">ლურჯი</button>
+    <button class="green" onclick="changeColor('green')">მწვანე</button>
+    <button class="yellow" onclick="changeColor('yellow')">ყვითელი</button>
+    <button class="purple" onclick="changeColor('purple')">ვარდისფერი</button>
+    <button class="orange" onclick="changeColor('orange')">ნარინჯისფერი</button>
+
+    <script>
+        function changeColor(color) {
+            document.body.style.background = color;
+        }
+    </script>
+
+</body>
+
+</html>

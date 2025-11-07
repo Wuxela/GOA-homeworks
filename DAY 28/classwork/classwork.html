@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Car Image Slider</title>
+    <style>
+        body {
+            text-align: center;
+            background: #111;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        img {
+            width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .red {
+            background: crimson;
+            color: white;
+        }
+
+        .blue {
+            background: royalblue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>მანქანის სლაიდერი</h2>
+    <img id="carImg" src="red_car.jpg" alt="Car Image">
+
+    <div>
+        <button class="red" onclick="showRed()">წითელი მანქანა</button>
+        <button class="blue" onclick="showBlue()">ლურჯი მანქანა</button>
+    </div>
+
+    <script>
+        function showRed() {
+            document.getElementById("carImg").src = "red_car.jpg";
+        }
+
+        function showBlue() {
+            document.getElementById("carImg").src = "blue_car.jpg";
+        }
+    </script>
+
+</body>
+
+</html>
