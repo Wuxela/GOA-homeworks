@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Virtual Keyboard — single file</title>
+    <style>
+        :root {
+            --bg: #0f1724;
+            --card: #0b1220;
+            --accent: #60a5fa;
+            --muted: #94a3b8;
+            --key: #111827;
+            --key-press: #1f2937;
+            --radius: 12px;
+            --gap: 8px;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #071021 120%);
+            color: #e6eef8;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+        }
+
+        .wrap {
+            width: min(980px, 96vw);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+        }
+
+        header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 18px
+        }
+
+        header h1 {
+            font-size: 18px;
+            margin: 0
+        }
+
+        header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .screen {
+            background: linear-gradient(180deg, #021022, #081826);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 14px;
+            min-height: 96px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        textarea#textInput {
+            flex: 1;
+            min-height: 72px;
+            resize: none;
+            background: transparent;
+            color: inherit;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            line-height: 1.4;
+            font-family: inherit;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .btn.active {
+            background: rgba(96, 165, 250, 0.12);
+            color: var(--accent);
+            border-color: rgba(96, 165, 250, 0.18)
+        }
+
+        .keyboard {
+            background: linear-gradient(180deg, #041021, #051526);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            user-select: none;
+        }
+
+        .row {
+            display: flex;
+            gap: var(--gap);
+            justify-content: center
+        }
+
+        .key {
+            background: var(--key);
+            border-radius: 8px;
+            padding: 12px 10px;
+            min-width: 44px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #dfe7f3;
+            box-shadow: 0 4px 10px rgba(2, 6, 23, 0.6) inset;
+            transition: transform .06s ease, box-shadow .06s ease, background .06s ease;
+            user-select: none;
+        }
+
+        .key.small {
+            min-width: 36px;
+            padding: 8px 6px
+        }
+
+        .key.wide {
+            min-width: 96px
+        }
+
+        .key.wider {
+            min-width: 150px
+        }
+
+        .key:active,
+        .key.pressed {
+            transform: translateY(2px);
+            background: var(--key-press)
+        }
+
+        .key.k-secondary {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 8px
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+
+        @media (max-width:640px) {
+            .key.wide {
+                min-width: 68px
+            }
+
+            .key.wider {
+                min-width: 110px
+            }
+
+            .wrap {
+                padding: 14px
+            }
+
+            .screen {
+                flex-direction: column;
+                gap: 10px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div style="display:flex;flex-direction:column">
+                <h1>Single-file Virtual Keyboard</h1>
+                <p>Click keys with the mouse or use your physical keyboard. Supports Shift, CapsLock, Backspace and
+                    Enter.</p>
+            </div>
+            <div style="margin-left:auto" class="controls">
+                <button id="toggleSound" class="btn" title="Toggle key sound">🔔 Sound</button>
+                <button id="clearBtn" class="btn" title="Clear text">🗑 Clear</button>
+            </div>
+        </header>
+
+        <div class="screen">
+            <textarea id="textInput" placeholder="Type here with the virtual or physical keyboard..."
+                aria-label="Text input" spellcheck="false"></textarea>
+        </div>
+
+        <div class="keyboard" id="keyboard">
+
+        </div>
+
+        <div class="hint">Tip: hold Shift or press CapsLock for uppercase. On mobile it will show the OS keyboard too.
+        </div>
+
+        <footer>
+            <div>Made with ❤️ — single-file demo</div>
+            <div>Save this file as <code>virtual-keyboard.html</code> and open in any browser.</div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const keyLayout = [
+                ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'],
+                ['Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
+                ['Caps', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter'],
+                ['Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Shift'],
+                ['Space']
+            ];
+
+            const kbd = document.getElementById('keyboard');
+            const textarea = document.getElementById('textInput');
+            const toggleSoundBtn = document.getElementById('toggleSound');
+            const clearBtn = document.getElementById('clearBtn');
+
+            let isShift = false;
+            let isCaps = false;
+            let soundOn = false;
+
+
+            const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+            function makeClick() {
+                if (!audioCtx) return; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.type = 'sine'; o.frequency.value = 1000; g.gain.value = 0.02; o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.03);
+            }
+
+            function createKeyElement(label) {
+                const el = document.createElement('div');
+                el.className = 'key';
+                el.tabIndex = -1;
+
+                if (label === 'Backspace') el.classList.add('wider');
+                if (label === 'Tab' || label === 'Caps' || label === 'Enter' || label === 'Shift') el.classList.add('wide');
+                if (label === 'Space') { el.classList.add('wider'); el.style.minWidth = '420px'; el.style.padding = '14px'; }
+
+                const display = document.createElement('div');
+                display.textContent = label;
+                el.appendChild(display);
+                el.dataset.key = label;
+                return el;
+            }
+
+
+            keyLayout.forEach(row => {
+                const r = document.createElement('div'); r.className = 'row';
+                row.forEach(k => {
+                    const ke = createKeyElement(k);
+                    r.appendChild(ke);
+                });
+                kbd.appendChild(r);
+            });
+
+
+            function getDisplayChar(key) {
+                if (key.length === 1) {
+                    const char = key;
+                    const upper = isShift ^ isCaps;
+                    return upper ? char.toUpperCase() : char.toLowerCase();
+                }
+                return key;
+            }
+
+            function pressKeyVisual(keyLabel) {
+                const el = [...document.querySelectorAll('.key')].find(x => x.dataset.key === keyLabel);
+                if (!el) return;
+                el.classList.add('pressed');
+                setTimeout(() => el.classList.remove('pressed'), 130);
+            }
+
+
+            kbd.addEventListener('click', e => {
+                const key = e.target.closest('.key'); if (!key) return;
+                const label = key.dataset.key;
+                handleVirtualKey(label);
+            });
+
+            function handleVirtualKey(label) {
+                if (soundOn) makeClick();
+                pressKeyVisual(label);
+                if (label === 'Backspace') {
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+                    if (start === end && start > 0) {
+                        textarea.value = textarea.value.slice(0, start - 1) + textarea.value.slice(end);
+                        textarea.selectionStart = textarea.selectionEnd = start - 1;
+                    } else {
+                        textarea.value = textarea.value.slice(0, start) + textarea.value.slice(end);
+                        textarea.selectionStart = textarea.selectionEnd = start;
+                    }
+                    textarea.focus();
+                    return;
+                }
+                if (label === 'Tab') {
+                    const start = textarea.selectionStart; const end = textarea.selectionEnd; const tab = '\t';
+                    textarea.value = textarea.value.slice(0, start) + tab + textarea.value.slice(end);
+                    textarea.selectionStart = textarea.selectionEnd = start + tab.length; textarea.focus();
+                    return;
+                }
+                if (label === 'Enter') {
+                    const start = textarea.selectionStart; const end = textarea.selectionEnd; const ch = '\n';
+                    textarea.value = textarea.value.slice(0, start) + ch + textarea.value.slice(end);
+                    textarea.selectionStart = textarea.selectionEnd = start + 1; textarea.focus();
+                    return;
+                }
+                if (label === 'Caps') {
+                    isCaps = !isCaps; updateLockState(); return;
+                }
+                if (label === 'Shift') {
+                    isShift = !isShift; updateLockState(); return;
+                }
+                if (label === 'Space') {
+                    const start = textarea.selectionStart; const end = textarea.selectionEnd; const ch = ' ';
+                    textarea.value = textarea.value.slice(0, start) + ch + textarea.value.slice(end);
+                    textarea.selectionStart = textarea.selectionEnd = start + 1; textarea.focus();
+
+                    if (isShift) { isShift = false; updateLockState(); }
+                    return;
+                }
+
+                if (label.length === 1) {
+                    const ch = getDisplayChar(label);
+                    const start = textarea.selectionStart; const end = textarea.selectionEnd;
+                    textarea.value = textarea.value.slice(0, start) + ch + textarea.value.slice(end);
+                    textarea.selectionStart = textarea.selectionEnd = start + ch.length; textarea.focus();
+                    if (isShift) { isShift = false; updateLockState(); }
+                }
+            }
+
+
+            function updateLockState() {
+                [...document.querySelectorAll('.key')].forEach(k => {
+                    const label = k.dataset.key;
+                    k.classList.remove('active');
+                    if (label === 'Caps' && isCaps) k.classList.add('active');
+                    if (label === 'Shift' && isShift) k.classList.add('active');
+
+
+                    if (label.length === 1) {
+                        const display = k.querySelector('div');
+                        display.textContent = getDisplayChar(label);
+                    }
+                });
+            }
+
+            window.addEventListener('keydown', e => {
+
+                if (e.key === 'Tab') e.preventDefault();
+                const key = normalizeKeyName(e.key);
+                if (soundOn) makeClick();
+                pressKeyVisual(key);
+
+                if (key === 'Backspace') {
+
+                    if (document.activeElement === textarea) return;
+                    e.preventDefault();
+                    handleVirtualKey('Backspace');
+                    return;
+                }
+
+                if (key === 'Shift') {
+                    isShift = true; updateLockState(); return;
+                }
+                if (key === 'CapsLock') {
+                    isCaps = !isCaps; updateLockState(); return;
+                }
+                if (key === 'Enter') {
+                    if (document.activeElement !== textarea) handleVirtualKey('Enter'); return;
+                }
+                if (key === 'Tab') {
+                    if (document.activeElement !== textarea) handleVirtualKey('Tab'); return;
+                }
+
+
+                if (key.length === 1) {
+
+                    if (document.activeElement !== textarea) {
+                        e.preventDefault();
+                        const ch = getDisplayChar(key);
+                        const start = textarea.selectionStart; const end = textarea.selectionEnd;
+                        textarea.value = textarea.value.slice(0, start) + ch + textarea.value.slice(end);
+                        textarea.selectionStart = textarea.selectionEnd = start + ch.length; textarea.focus();
+                        if (isShift) { isShift = false; updateLockState(); }
+                    }
+                }
+            }, true);
+
+            window.addEventListener('keyup', e => {
+                const key = normalizeKeyName(e.key);
+                if (key === 'Shift') {
+                    isShift = false; updateLockState();
+                }
+            }, true);
+
+            function normalizeKeyName(k) {
+
+                if (k === ' ') return 'Space';
+                if (k === 'Esc') return 'Escape';
+                if (k === 'CapsLock') return 'Caps';
+                if (k === 'Backspace') return 'Backspace';
+                if (k === 'Enter') return 'Enter';
+                if (k === 'Shift') return 'Shift';
+                if (k === 'Tab') return 'Tab';
+                if (k.length === 1) return k;
+                return k;
+            }
+
+
+            toggleSoundBtn.addEventListener('click', () => {
+                soundOn = !soundOn; toggleSoundBtn.classList.toggle('active', soundOn); toggleSoundBtn.textContent = soundOn ? '🔔 On' : '🔕 Sound';
+            });
+            clearBtn.addEventListener('click', () => { textarea.value = ''; textarea.focus(); });
+
+
+            textarea.focus();
+
+
+            window.__vk = { setSound: v => { soundOn = !!v; toggleSoundBtn.classList.toggle('active', soundOn); } };
+
+
+            updateLockState();
+        })();
+    </script>
+</body>
+
+</html>
