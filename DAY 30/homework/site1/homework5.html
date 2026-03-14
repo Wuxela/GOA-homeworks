@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ჩემი ფავორიტი ავტომობილები</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="scrypt.js">
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#cars">Cars</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>სიჩქარის და დიზაინის ჰარმონია</h1>
+        <p>კეთილი იყოს თქვენი მობრძანება ლეგენდარული ავტომობილების სამყაროში.</p>
+    </section>
+
+    <section id="cars">
+        <h2>რჩეული მოდელები</h2>
+        <div class="car-grid">
+            <div class="car-card">
+                <h3>Porsche 911 GT3</h3>
+                <p>ატმოსფერული ძრავის და სრულყოფილი მართვის სიმბოლო.</p>
+            </div>
+            <div class="car-card">
+                <h3>BMW M4 CSL</h3>
+                <p>სარბოლო ტრასისთვის შექმნილი სიმძლავრე.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>ჩვენს შესახებ</h2>
+        <p>ეს საიტი შექმნილია ავტომოყვარულებისთვის, ვისაც აფასებს საინჟინრო ხელოვნებას და ესთეტიკას.</p>
+    </section>
+
+    <section id="gallery">
+        <h2>ინტერაქტიული გალერეა</h2>
+        <div class="gallery-container">
+            <div class="car-display">
+                <img id="main-car" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800"
+                    alt="Porsche Front">
+
+                <div class="controls">
+                    <button onclick="changeView('front')">წინა ხედი</button>
+                    <button onclick="changeView('back')">უკანა ხედი</button>
+                    <button onclick="changeView('side')">გვერდი</button>
+                    <button onclick="changeView('interior')">სალონი</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 ავტო გალერეა. ყველა უფლება დაცულია.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
